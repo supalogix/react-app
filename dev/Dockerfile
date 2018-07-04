@@ -5,7 +5,8 @@ WORKDIR /app
 COPY . .
 
 RUN npm install -g http-server \
-    && yarn 
+    && yarn \
+    && yarn build
 
 EXPOSE 8080
 
