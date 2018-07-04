@@ -14,4 +14,5 @@ echo export AWS_SECRET_ACCESS_KEY="${aws_secret_access_key}" >> /etc/profile
 git remote add origin https://github.com/supalogix/react-app.git
 git pull origin ${git_tag}
 export HOSTNAME=$(cat /etc/hostname)
-sudo -E docker-compose up -d
+cd dev
+sudo -E docker-compose -f docker-compose-prod.yml up -d
