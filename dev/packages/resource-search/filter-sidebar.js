@@ -1,4 +1,8 @@
 import React from "react"
+//import ReactDatePicker from "react-date-picker"
+import ReactDatePicker from "react-datepicker"
+import moment from "moment"
+import "react-datepicker/dist/react-datepicker-cssmodules.css"
 
 export const initialState = {
     keyword: "keyword sample",
@@ -93,13 +97,8 @@ export default (props) => {
 
     <a className="head sub-head expand" href="#">
         Date
-        <div className="open-icon"></div>
+        <ReactDatePicker />
     </a>
-    <ul className="sub-filters">
-        <li>
-            <input type="date" name="dateSelector" id="dateSelector" />
-        </li>
-    </ul>
 
     <a className="head sub-head expand" href="#">
         Type

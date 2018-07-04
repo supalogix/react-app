@@ -33,6 +33,9 @@ module.exports = (env = {}) => ({
                     plugins: [ ]
                 }
             },
+            { test: /\.css$/, loader: "style-loader!css-loader" },
+            { test: /\.png$/, loader: "url-loader?limit=100000" },
+            { test: /\.jpg$/, loader: "file-loader" }
         ]
     },
     plugins: [
@@ -42,6 +45,6 @@ module.exports = (env = {}) => ({
 //        new DashboardPlugin()
     ],
     resolve: {
-        extensions: ['.js', '.jsx'],
+        extensions: ['.js', '.jsx', ".css"],
     }
 })

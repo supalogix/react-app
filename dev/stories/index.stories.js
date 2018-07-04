@@ -1,3 +1,4 @@
+require("react-datepicker/dist/react-datepicker-cssmodules.css");
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';

@@ -17,8 +17,8 @@ export function ListView(props) {
 }
 
 export const sf = dispatch => state => {
-    const start = state.selectedPage*9
-    const end = state.selectedPage*9 + 9
+    const start = state.selectedPage * 9
+    const end = (state.selectedPage * 9) + 9
     const dir = (state.resultsSortOrder === "OLDEST")
         ? -1
         : 1
