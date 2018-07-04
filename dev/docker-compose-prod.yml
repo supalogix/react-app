@@ -1,0 +1,17 @@
+version: '3'
+
+services: 
+  app:
+    image: hello-world
+    build: 
+      context: .
+    ports:
+      - 80:8080
+    environment:
+      - HOSTNAME
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: "us-west-1"
+        awslogs-group: "log-group-react-app"
+        awslogs-stream: "log-stream-react-app-${HOSTNAME}"
