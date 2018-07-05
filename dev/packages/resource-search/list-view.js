@@ -22,9 +22,15 @@ export const sf = dispatch => state => {
     const dir = (state.resultsSortOrder === "OLDEST")
         ? -1
         : 1
+    const selected = new Set(state.languages.selected)
 
     const results = state
         .results
+        .filter(item => {
+            if(selected.size === 0)
+                return true
+            return selected.has(item.language)
+        })
         .sort((lhs, rhs) => {
             if(lhs.datecreated < rhs.datecreated)
                 return -1*dir

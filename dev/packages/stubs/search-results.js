@@ -16,7 +16,8 @@ export default ([
         "showImage": 1,
         "size": "1.87",
         "title": "zone_chairperson_slides_9.ppt",
-        "type": "ppt"
+        "type": "ppt",
+        "language": "en"
     },
     {
         "bgClass": "navy",
@@ -35,7 +36,8 @@ export default ([
         "showImage": 1,
         "size": "2.12",
         "title": "zone_chairperson_slides_6.ppt",
-        "type": "ppt"
+        "type": "ppt",
+        "language": "en"
     },
     {
         "bgClass": "navy",
@@ -54,7 +56,8 @@ export default ([
         "showImage": 1,
         "size": "2.15",
         "title": "zone_chairperson_slides_2.ppt",
-        "type": "ppt"
+        "type": "ppt",
+        "language": "en"
     },
     {
         "bgClass": "navy",
@@ -73,7 +76,8 @@ export default ([
         "showImage": 1,
         "size": "2.16",
         "title": "zone_chairperson_slides_1.ppt",
-        "type": "ppt"
+        "type": "ppt",
+        "language": "fr"
     },
     {
         "bgClass": "navy",
@@ -92,7 +96,8 @@ export default ([
         "showImage": 1,
         "size": "3.90",
         "title": "zone-chairperson-seminar_1.pptx",
-        "type": "pptx"
+        "type": "pptx",
+        "language": "es"
     },
     {
         "bgClass": "navy",
@@ -111,7 +116,8 @@ export default ([
         "showImage": 1,
         "size": "3.90",
         "title": "zone-chairperson-seminar.pptx",
-        "type": "pptx"
+        "type": "pptx",
+        "language": "es"
     },
     {
         "bgClass": "navy",

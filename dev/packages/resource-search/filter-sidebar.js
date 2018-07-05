@@ -1,68 +1,12 @@
 import React from "react"
-//import ReactDatePicker from "react-date-picker"
 import ReactDatePicker from "react-datepicker"
 import moment from "moment"
 import "react-datepicker/dist/react-datepicker-cssmodules.css"
+import {pure} from "recompose"
+import {connectAdvanced} from "react-redux"
+import u from "updeep"
 
-export const initialState = {
-    keyword: "keyword sample",
-    parentName: "parent name sample",
-    childName: "child name sample",
-    folders: [
-        {
-            id: "choice1-1",
-            name: "choice1",
-            title: "Brochure",
-        },
-        {
-            id: "choice1-2",
-            name: "choice2",
-            title: "Form",
-        },
-        {
-            id: "choice1-3",
-            name: "choice3",
-            title: "Photography",
-        },
-        {
-            id: "choice1-4",
-            name: "choice4",
-            title: "Brand",
-        },
-        {
-            id: "choice1-5",
-            name: "choice5",
-            title: "Music",
-        },
-        {
-            id: "choice1-6",
-            name: "choice6",
-            title: "Presentation",
-        },
-    ],
-    languages: [
-        {
-            id: "language1-1",
-            name: "language1",
-            title: "English",
-        },
-        {
-            id: "language1-2",
-            name: "language2",
-            title: "French",
-        },
-        {
-            id: "language1-3",
-            name: "language3",
-            title: "French",
-        },
-    ]
-
-}
-
-export default (props) => {
-    props = initialState
-
+export const FilterSidebar = pure((props) => {
     return <section className="component-filter-sidebar">
 
     <form id="mobileKeywordSearch">
@@ -95,10 +39,10 @@ export default (props) => {
     </ul>
     <div className="refine-by">Refine By</div>
 
-    <a className="head sub-head expand" href="#">
+    <span className="head sub-head expand" href="#">
         Date
         <ReactDatePicker />
-    </a>
+    </span>
 
     <a className="head sub-head expand" href="#">
         Type
@@ -109,7 +53,13 @@ export default (props) => {
         {
             props.folders.map(folder => <li>
                 <label className="checkbox-button">
-                    <input type="checkbox" className="checkbox-button__input" id={folder.id} name={folder.name} />
+                    <input 
+                        checked={folder.selected}
+                        onChange={props.onFolderChanged(folder.id)}
+                        type="checkbox" 
+                        className="checkbox-button__input" 
+                        id={folder.id} 
+                        name={folder.name} />
                     <span className="checkbox-button__control"></span>
                     <span className="checkbox-button__label">{folder.title}</span>
                 </label>
@@ -126,7 +76,13 @@ export default (props) => {
         {
             props.languages.map(language => <li>
                 <label className="checkbox-button">
-                    <input type="checkbox" className="checkbox-button__input" id={language.id} name={language.name} />
+                    <input 
+                        type="checkbox" 
+                        checked={language.selected}
+                        onChange={props.onLanguageChanged(language.id)}
+                        className="checkbox-button__input" 
+                        id={language.id} 
+                        name={language.name} />
                     <span className="checkbox-button__control"></span>
                     <span className="checkbox-button__label">{language.title}</span>
                 </label>
@@ -136,4 +92,61 @@ export default (props) => {
     </ul>
 
 </section>
+})
+
+export const sf = dispatch => state => {
+    const selectedFolders = new Set(state.folders.selected)
+    const folders =  state.folders.data.map(folder => {
+        return u(
+            {
+                selected: selectedFolders.has(folder.id)
+            },
+            folder
+        )
+    })
+
+    const selectedLangs = new Set(state.languages.selected)
+    const languages = state.languages.data.map(lang => {
+        return u(
+            {
+                selected: selectedLangs.has(lang.id)
+            },
+            lang
+        )
+    })
+    const onLanguageChanged = id => e => {
+        if(selectedLangs.has(id))
+            dispatch({
+                type: "LANGUAGE_DESELECTED",
+                payload: id
+            })
+        else
+            dispatch({
+                type: "LANGUAGE_SELECTED",
+                payload: id
+            })
+    }
+    const onFolderChanged = id => e => {
+        if(selectedFolders.has(id))
+            dispatch({
+                type: "FOLDER_DESELECTED",
+                payload: id
+            })
+        else
+            dispatch({
+                type: "FOLDER_SELECTED",
+                payload: id
+            })
+    }
+    return {
+        keyword: "keyword sample",
+        parentName: "parent name sample",
+        childName: "child name sample",
+        folders,
+        languages,
+        onLanguageChanged,
+        onFolderChanged
+    }
 }
+
+export default connectAdvanced(sf)(FilterSidebar)
