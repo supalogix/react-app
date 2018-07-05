@@ -22,14 +22,16 @@ data "template_file" "user_data" {
   template = "${file("user-data.sh")}"
 
   vars {
-    #    private_key           = "${file("secrets/private_key")}"
-    git_tag               = "master"
+    private_key           = "${file("secrets/private_key")}"
+    git_tag               = "${var.git_tag}"
     aws_access_key_id     = "${aws_iam_access_key.logs.id}"
     aws_secret_access_key = "${aws_iam_access_key.logs.secret}"
   }
 }
 
 resource "aws_launch_configuration" "example" {
+  name_prefix = "${var.name_prefix}"
+
   instance_type = "${var.instance_type}"
 
   image_id = "${data.aws_ami.ubuntu.id}"
@@ -83,18 +85,26 @@ resource "aws_security_group" "example-sec-group" {
 data "aws_availability_zones" "all" {}
 
 resource "aws_autoscaling_group" "example" {
+  name                 = "react-app - ${aws_launch_configuration.example.name}"
   launch_configuration = "${aws_launch_configuration.example.id}"
   availability_zones   = ["${data.aws_availability_zones.all.names}"]
 
   load_balancers = ["${aws_elb.example.name}"]
 
   min_size = 2
-  max_size = 10
+  max_size = 5
 
+  #  min_elb_capacity  = 2
+  #  health_check_type = "EC2"
+
+  termination_policies = ["OldestLaunchConfiguration"]
   tag {
     key                 = "Name"
     value               = "terraform-asg-example"
     propagate_at_launch = true
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }
 

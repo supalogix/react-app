@@ -27,7 +27,8 @@
     "redux": "^4.0.0",
     "reselect": "^3.0.1",
     "style-loader": "^0.21.0",
-    "superagent": "^3.8.3"
+    "superagent": "^3.8.3",
+    "updeep": "^1.0.0"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.8",

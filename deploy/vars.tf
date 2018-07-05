@@ -25,3 +25,11 @@ variable "log_group_name" {
 variable "log_retention_days" {
   description = "log retention days"
 }
+
+variable "name_prefix" {
+  description = "change the name to trigger a new autoscaling group"
+}
+
+variable "git_tag" {
+  description = "the git tag"
+}
