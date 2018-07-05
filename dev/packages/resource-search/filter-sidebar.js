@@ -41,7 +41,10 @@ export const FilterSidebar = pure((props) => {
 
     <span className="head sub-head expand" href="#">
         Date
-        <ReactDatePicker />
+        <ReactDatePicker
+            selected={props.selectedDate}
+            onChange={props.onDateChanged}
+        />
     </span>
 
     <a className="head sub-head expand" href="#">
@@ -138,14 +141,23 @@ export const sf = dispatch => state => {
                 payload: id
             })
     }
+    const selectedDate = state.selectedDate
+    const onDateChanged = e => {
+        dispatch({
+            type: "DATE_CHANGED",
+            payload: e
+        })
+    }
     return {
         keyword: "keyword sample",
         parentName: "parent name sample",
         childName: "child name sample",
+        selectedDate,
         folders,
         languages,
         onLanguageChanged,
-        onFolderChanged
+        onFolderChanged,
+        onDateChanged
     }
 }
 

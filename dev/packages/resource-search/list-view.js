@@ -23,13 +23,27 @@ export const sf = dispatch => state => {
         ? -1
         : 1
     const selected = new Set(state.languages.selected)
+    const selectedDate = state.selectedDate
 
     const results = state
         .results
         .filter(item => {
             if(selected.size === 0)
                 return true
+
             return selected.has(item.language)
+        })
+        .filter(item => {
+            if(selectedDate === "")
+                return true
+            
+            const year = selectedDate.year()
+            const day = selectedDate.date().toString().padStart(2, "0")
+            const month = (selectedDate.month() + 1).toString().padStart(2, "0")
+            const date = `${year}-${month}-${day}`
+           
+            debugger
+            return (item.datecaptured || "").indexOf(date) > -1 
         })
         .sort((lhs, rhs) => {
             if(lhs.datecreated < rhs.datecreated)

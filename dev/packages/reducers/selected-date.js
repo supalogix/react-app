@@ -1,12 +1,12 @@
 import * as EVENT_TYPE from "@app/event-types"
+import moment from "moment"
 export const initialState = ""
 
 export default (state = initialState, event = {}) => {
-    if(event.type === EVENT_TYPE.PAGED_BACKWARD)
-        return state - 1
-    if(event.type === EVENT_TYPE.PAGED_FORWARD)
-        return state + 1
-    if(event.type === EVENT_TYPE.ALL_CLEARED)
-        return 0
+    if(event.type === "DATE_CHANGED") 
+    {
+        return event.payload
+    }
+
     return state
 }

@@ -17,5 +17,6 @@ export default ({
     selectedPage,
     resultsSortOrder,
     languages,
-    folders
+    folders,
+    selectedDate
 })
