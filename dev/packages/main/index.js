@@ -54,14 +54,22 @@ export const onPageLoaded = store => next => event => (async () => {
         store.dispatch({
             type: "INITIALIZATION_DATA_REQUESTED"
         })
-        Promise.all([getFolderData(), getLandingPageData()]).then((result)=> {
+        Promise.all([getFolderData(), getFeaturedData(), getNewData()]).then((result)=> {
             const categories = result[0]
-            const landingPageData = result[1]
             const data = Format(categories);
-            debugger
+            const featuredData = result[1]
+            const newData = result[2]
             store.dispatch({
                 type: "INITIALIZATION_DATA_RECEIVED",
                 payload: data
+            })
+            store.dispatch({
+                type: "FEATURED_DATA_RECEIVED",
+                payload: featuredData
+            })
+            store.dispatch({
+                type: "NEW_RESOURCES_RECEIVED",
+                payload: newData
             })
         })
     }
@@ -81,9 +89,21 @@ export function getFolderData() {
     })
 }
 
-export function getLandingPageData() {
+export function getNewData() {
     return new Promise(resolve => {
-        const url = "http://lionswebsitedev.prod.acquia-sites.com/en/v1/resource/search?sortby=filename&sortdir=desc&limit=10&offset=0&query=&folderid="
+        const url = "http://lionswebsitedev.prod.acquia-sites.com/en/v1/resource/search?sortby=filename&sortdir=desc&limit=9&offset=0&query=&folderid="
+        request
+            .get(url)
+            .end((error, response) => {
+                const data = JSON.parse(response.text)
+                resolve(data)
+            })
+    })
+}
+
+export function getFeaturedData() {
+    return new Promise(resolve => {
+        const url = "http://lionswebsitedev.prod.acquia-sites.com/en/v1/resource/search?sortby=filename&sortdir=desc&limit=9&offset=0&query=featured&folderid="
         request
             .get(url)
             .end((error, response) => {
@@ -119,12 +139,10 @@ export const onFolderDataRequested = store => next => event => {
     if(event.type === "FOLDER_DATA_REQUESTED") {
         const folderId = event.payload
         const url = `http://lionswebsitedev.prod.acquia-sites.com/en/v1/resource/search?sortby=filename&sortdir=desc&limit=&offset=0&query=&folderid=${folderId}`
-        debugger
         request
             .get(url)
             .end((error, response) => {
                 const data = JSON.parse(response.text)
-                debugger
                 store.dispatch({
                     type: "FOLDER_DATA_RECEIVED",
                     payload: {

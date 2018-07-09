@@ -1,10 +1,8 @@
 export const initialState = Results()
 
 export default (state = initialState, event = {}) => {
-    if(event.type === "SEARCH_RESULTS_RECEIVED")
-        return event.payload.data
-    if(event.type === "ALL_CLEARED")
-        return []
+    if(event.type === "FEATURED_DATA_RECEIVED")
+        return event.payload
     return state
 }
 

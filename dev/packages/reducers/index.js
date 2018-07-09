@@ -8,6 +8,8 @@ import languages from "./languages"
 import folders from "./folders"
 import selectedDate from "./selected-date"
 import types from "./types"
+import featuredData from "./featured-data"
+import newResources from "./new-resources"
 
 
 export default ({
@@ -20,5 +22,7 @@ export default ({
     languages,
     folders,
     selectedDate,
-    types
+    types,
+    featuredData,
+    newResources
 })

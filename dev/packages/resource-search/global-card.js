@@ -1,25 +1,5 @@
 import React from "react"
 
-export const initialState = {
-    "cardType": "resource",
-    "category": "report new",
-    "cardIcon": "pdf",
-    "bgClass": "navy",
-    "clubType": "Lions",
-    "bgImg": "https:\/\/cdn4.webdamdb.com\/md_Q78OgPVLB92.jpg.pdf?v=1",
-    "pages": "145",
-    "title": "zone chairperson slides 9.ppt",
-    "download": "https:\/\/cdn4.webdamdb.com\/md_Q78OgPVLB92.jpg.pdf?v=1",
-    "description": "",
-    "size": "1.87",
-    "type": "ppt",
-    "id": "75767421",
-    "showImage": 1,
-    "datecreated": "2018-06-10 20:39:07",
-    "datecaptured": "2009-01-29 23:12:51",
-    "datemodified": "2018-06-14 18:58:50",
-  }
-
 export default Master
 
 export function Master(props) {
@@ -29,29 +9,27 @@ export function Master(props) {
     const mediaBoxClassNames = `media-box ${props.bgClass} ${props.cardType} ${props.showImage}`
     const className = `tile ${props.cardType}`
 
-    return <div class="col-md-6 col-lg-4">
-        <section className="component-global-card">
-            <div className={className}>
-                <a href={props.download}>
-                    <div>{props.id}</div>
-                    <div style={mediaBoxStyle} className={mediaBoxClassNames}>
-                        <div className="top-bar">
-                            <div className="description">
-                                {props.category}
-                            </div>
-                        </div>
-                        <div className={`img-container ${props.cardIcon}`}>
-                            <Audio {...props} />
-                            <Video {...props} />
+    return <section className="component-global-card">
+        <div className={className}>
+            <a href={props.download}>
+                <div>{props.id}</div>
+                <div style={mediaBoxStyle} className={mediaBoxClassNames}>
+                    <div className="top-bar">
+                        <div className="description">
+                            {props.category}
                         </div>
                     </div>
-                    <Resource {...props} />
-                </a>
-            </div>
+                    <div className={`img-container ${props.cardIcon}`}>
+                        <Audio {...props} />
+                        <Video {...props} />
+                    </div>
+                </div>
+                <Resource {...props} />
+            </a>
+        </div>
 
-            <VideoModal {...props} />
-        </section>
-    </div>
+        <VideoModal {...props} />
+    </section>
 }
 
 export function Video(props) {
