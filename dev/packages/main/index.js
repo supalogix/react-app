@@ -136,14 +136,14 @@ export const store = createStore(
         onPageLoaded,
         onFolderDataRequested
     ))
-export const start = () => {
+//export const start = () => {
     render(
         <Provider store={store}>
             <Search />
         </Provider>,
         document.getElementById("container")
     )
-}
+//}
 
 export function MockData() {
     return STUB.searchResults;
