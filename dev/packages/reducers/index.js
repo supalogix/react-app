@@ -7,6 +7,7 @@ import resultsSortOrder from "./results-sort-order"
 import languages from "./languages"
 import folders from "./folders"
 import selectedDate from "./selected-date"
+import types from "./types"
 
 
 export default ({
@@ -18,5 +19,6 @@ export default ({
     resultsSortOrder,
     languages,
     folders,
-    selectedDate
+    selectedDate,
+    types
 })

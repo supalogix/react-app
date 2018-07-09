@@ -7,7 +7,7 @@ export default (state = initialState, event = {}) => {
         return handleSearchResultsReceived(state, event)
     }
 
-    if(event.type === "LANGUAGE_DESELECTED") {
+    if(event.type === "TYPE_DESELECTED") {
         const index = state
             .selected
             .indexOf(event.payload);
@@ -15,8 +15,7 @@ export default (state = initialState, event = {}) => {
             .selected
             .slice(0, index)
             .concat(
-                state.selected.slice(index+1)
-        )
+                state.selected.slice(index+1))
         return u(
             {
                 selected
@@ -24,11 +23,8 @@ export default (state = initialState, event = {}) => {
             state
         )
     }
-    if(event.type === "LANGUAGE_SELECTED") {
-        const selected = state
-            .selected
-            .concat(event.payload)
-
+    if(event.type === "TYPE_SELECTED") {
+        const selected = state.selected.concat(event.payload)
         return u(
             {
                 selected
@@ -36,7 +32,6 @@ export default (state = initialState, event = {}) => {
             state
         )
     }
-
     return state
 }
 
@@ -53,8 +48,8 @@ export function handleSearchResultsReceived(state, event) {
         .payload
         .data
         .forEach(item => {
-            if(item.language)
-                set.add(item.language)
+            if(item.type)
+                set.add(item.type)
         })
     const result = 
         {

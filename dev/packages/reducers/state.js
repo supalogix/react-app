@@ -1,10 +1,14 @@
 import * as STATE from "@app/states"
 
-export const initialState = STATE.LANDING
+export const initialState = STATE.NOT_STARTED
 
 export const config = {
     [STATE.NOT_STARTED]: {
-        "PAGE_LOADED": (state, event) =>
+        "INITIALIZATION_DATA_REQUESTED": (state, event) =>
+            STATE.INITIALIZING
+    },
+    [STATE.INITIALIZING]: {
+        "INITIALIZATION_DATA_RECEIVED": (state, event) => 
             STATE.LANDING
     },
     [STATE.LANDING]: {
