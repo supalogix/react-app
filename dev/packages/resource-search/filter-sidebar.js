@@ -203,7 +203,7 @@ export function Folders(folders) {
     keys.forEach(key => {
         const folder = folders[key]
         const parent = {
-            id: "",
+            id: folder.id,
             title: folder.title,
             type: "topic-header"
         }

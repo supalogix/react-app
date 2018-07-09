@@ -13,7 +13,9 @@ export const config = {
     },
     [STATE.LANDING]: {
         "SEARCH_RESULTS_REQUESTED": (state, event) =>
-            STATE.WAITING_FOR_RESULTS
+            STATE.WAITING_FOR_RESULTS,
+        "FOLDER_DATA_REQUESTED": (state, event) =>
+            STATE.WAITING_FOR_RESULTS,
     },
     [STATE.SHOWING_SEARCH_RESULTS]: {
         "SEARCH_RESULTS_REQUESTED": (state, event) =>
@@ -23,7 +25,9 @@ export const config = {
     },
     [STATE.WAITING_FOR_RESULTS]: {
         "SEARCH_RESULTS_RECEIVED": (state, event) =>
-            STATE.SHOWING_SEARCH_RESULTS
+            STATE.SHOWING_SEARCH_RESULTS,
+        "FOLDER_DATA_RECEIVED": (state, event) =>
+            STATE.SHOWING_SEARCH_RESULTS,
 
     }
 }

@@ -23,6 +23,7 @@ export function Format(data) {
         return u(
             {
                 [item.parentId]: {
+                    id: item.parentId,
                     title: item.parentName,
                     children: [ ]
                 }
@@ -57,6 +58,7 @@ export const onPageLoaded = store => next => event => (async () => {
             const categories = result[0]
             const landingPageData = result[1]
             const data = Format(categories);
+            debugger
             store.dispatch({
                 type: "INITIALIZATION_DATA_RECEIVED",
                 payload: data
@@ -69,9 +71,13 @@ export const onPageLoaded = store => next => event => (async () => {
 
 export function getFolderData() {
     return new Promise((resolve) => {
-        setTimeout(() => resolve(
-            STUB.categories
-        ), 2000)
+        const url = "http://lionswebsitedev.prod.acquia-sites.com/en/v1/resource/categories"
+        request
+            .get(url)
+            .end((error, response) => {
+                const data = JSON.parse(response.text)
+                resolve(data)
+            })
     })
 }
 
@@ -111,15 +117,18 @@ export const onSearchTermsSubmitted = store => next => event => {
 
 export const onFolderDataRequested = store => next => event => {
     if(event.type === "FOLDER_DATA_REQUESTED") {
+        const folderId = event.payload
+        const url = `http://lionswebsitedev.prod.acquia-sites.com/en/v1/resource/search?sortby=filename&sortdir=desc&limit=&offset=0&query=&folderid=${folderId}`
         debugger
-        const url = ""
         request
             .get(url)
             .end((error, response) => {
+                const data = JSON.parse(response.text)
+                debugger
                 store.dispatch({
                     type: "FOLDER_DATA_RECEIVED",
                     payload: {
-
+                        data
                     }
                 })
             })
@@ -136,15 +145,14 @@ export const store = createStore(
         onPageLoaded,
         onFolderDataRequested
     ))
-//export const start = () => {
-    render(
-        <Provider store={store}>
-            <Search />
-        </Provider>,
-        document.getElementById("container")
-    )
-//}
 
 export function MockData() {
     return STUB.searchResults;
 }
+
+render(
+    <Provider store={store}>
+        <Search />
+    </Provider>,
+    document.getElementById("container")
+)
